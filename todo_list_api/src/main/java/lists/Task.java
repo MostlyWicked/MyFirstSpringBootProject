@@ -23,8 +23,8 @@ public class Task {
 		this.description = description;
 	}
 
-	public float getCompletion() {
-		return completion;
+	public String getCompletion() {
+		return Math.round(completion * 100) + "%";
 	}
 
 	public void setCompletion(float completion) {
