@@ -22,7 +22,6 @@ public class ToDoList {
 		tasks.add(task);
 	}
 	
-	//TODO - currently all IDs remain 0!
 	public void addTask(String title, String description) {
 		addTask(new Task(tasks.size() + 1, title, description));
 	}

@@ -34,6 +34,7 @@ public class ListController {
 		return new TaskRepresentation(task.getId(), task.getTitle(), task.getDescription(), task.getCompletion());
 	}
 	
+	//TODO - currently returns deleted tasks too
 	@RequestMapping(value = "/get_task_by_id", method = RequestMethod.GET)
 	public TaskRepresentation getTaskById(@RequestParam int id) {
 		Task task = todoList.getTaskById(id);
