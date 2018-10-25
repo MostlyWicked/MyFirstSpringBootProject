@@ -13,6 +13,7 @@ public class Task {
 		this.completion = 0;
 		this.title = title;
 		this.deleted = false;
+		this.id = id;
 	}
 	
 	public String getDescription() {

@@ -20,12 +20,12 @@ public class ListController {
 	@RequestMapping(value = "/add_task", method = RequestMethod.POST)
 	public ListRepresentation addTask(@RequestBody AddTaskBody addTaskBody){
 		todoList.addTask(addTaskBody.getTitle(), addTaskBody.getDescription());
-		return new ListRepresentation(utils.TodoListConverter.todoListToStringArray(todoList));
+		return new ListRepresentation(utils.TodoListConverter.todoListToTaskRepresentationArray(todoList));
 	}
 	
 	@RequestMapping(value = "/get_all_tasks", method = RequestMethod.GET)
 	public ListRepresentation getTasks(){
-		return new ListRepresentation(utils.TodoListConverter.todoListToStringArray(todoList));
+		return new ListRepresentation(utils.TodoListConverter.todoListToTaskRepresentationArray(todoList));
 	}
 	
 	@RequestMapping(value = "/get_task_by_title", method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class ListController {
 	@RequestMapping(value = "/delete_task_by_id", method = RequestMethod.GET)
 	public ListRepresentation deleteTaskById(@RequestParam int id) {
 		todoList.deleteTask(id);
-		return new ListRepresentation(utils.TodoListConverter.todoListToStringArray(todoList));
+		return new ListRepresentation(utils.TodoListConverter.todoListToTaskRepresentationArray(todoList));
 	}
 	
 	

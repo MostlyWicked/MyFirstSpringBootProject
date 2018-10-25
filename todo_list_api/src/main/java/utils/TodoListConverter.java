@@ -1,15 +1,16 @@
 package utils;
 
 import lists.*;
+import representations.TaskRepresentation;
 
 public class TodoListConverter {
 	
-	public static String[] todoListToStringArray(ToDoList list) {
-		String[] array = new String[list.length()];
+	public static TaskRepresentation[] todoListToTaskRepresentationArray(ToDoList list) {
+		TaskRepresentation[] array = new TaskRepresentation[list.length()];
 		int i = 0;
 		for(Task task : list.getTasks()) {
 			if(!task.isDeleted()){
-				array[i] = task.toString();
+				array[i] = new TaskRepresentation(task.getId(), task.getTitle(), task.getDescription(), task.getCompletion());
 				i++;
 			}
 		}

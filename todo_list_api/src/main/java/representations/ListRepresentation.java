@@ -1,13 +1,13 @@
 package representations;
 
 public class ListRepresentation {
-	private final String[] tasks;
+	private final TaskRepresentation[] tasks;
 
-	public ListRepresentation(String[] tasks) {
+	public ListRepresentation(TaskRepresentation[] tasks) {
 		this.tasks = tasks;
 	}
 	
-	public String[] getTasks() {
+	public TaskRepresentation[] getTasks() {
 		return tasks;
 	}
 }
