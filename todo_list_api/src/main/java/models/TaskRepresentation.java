@@ -1,4 +1,4 @@
-package representations;
+package models;
 
 public class TaskRepresentation {
 	private int id;

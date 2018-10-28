@@ -1,4 +1,4 @@
-package representations;
+package models;
 
 public class Greeting {
 	private final long id;

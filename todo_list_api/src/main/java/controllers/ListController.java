@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import exceptions.TaskNotFoundException;
 import lists.Task;
 import lists.ToDoList;
-import representations.AddTaskBody;
-import representations.ListRepresentation;
-import representations.TaskRepresentation;
+import models.AddTaskBody;
+import models.ListRepresentation;
+import models.TaskRepresentation;
 
 @RestController
 public class ListController {
@@ -36,8 +37,12 @@ public class ListController {
 	
 	//TODO - currently returns deleted tasks too
 	@RequestMapping(value = "/get_task_by_id", method = RequestMethod.GET)
-	public TaskRepresentation getTaskById(@RequestParam int id) {
+	public TaskRepresentation getTaskById(@RequestParam int id) throws TaskNotFoundException{
+		String errorMsg = "The task with ID " + id + " was not found in tasks list.";
 		Task task = todoList.getTaskById(id);
+		if (task == null || task.isDeleted()) {
+			throw new TaskNotFoundException(errorMsg);
+		}
 		return new TaskRepresentation(task.getId(), task.getTitle(), task.getDescription(), task.getCompletion());
 	}
 	

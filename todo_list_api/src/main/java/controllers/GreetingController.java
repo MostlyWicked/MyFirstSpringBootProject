@@ -3,7 +3,7 @@ package controllers;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.*;
 
-import representations.Greeting;
+import models.Greeting;
 
 @RestController
 public class GreetingController {

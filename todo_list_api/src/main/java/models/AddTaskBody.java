@@ -1,4 +1,4 @@
-package representations;
+package models;
 
 public class AddTaskBody {
 	private String title;

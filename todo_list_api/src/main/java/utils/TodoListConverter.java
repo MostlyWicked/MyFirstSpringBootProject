@@ -1,7 +1,7 @@
 package utils;
 
 import lists.*;
-import representations.TaskRepresentation;
+import models.TaskRepresentation;
 
 public class TodoListConverter {
 	
