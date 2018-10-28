@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import databaseImplementations.DBFactory;
+import enums.DBType;
 import exceptions.TaskNotFoundException;
-import lists.Task;
-import lists.ToDoList;
+import interfaces.IToDoList;
+import interfaces.ITask;
 import models.AddTaskBody;
 import models.ListRepresentation;
 import models.TaskRepresentation;
@@ -16,7 +17,7 @@ import models.TaskRepresentation;
 @RestController
 public class ListController {
 	
-	public static ToDoList todoList = new ToDoList();
+	private IToDoList todoList = DBFactory.getDaoInstance(DBType.SimulationByJavaObjects); //With JSystem or a similar test framework the type can come from the SUT 
 	
 	@RequestMapping(value = "/add_task", method = RequestMethod.POST)
 	public ListRepresentation addTask(@RequestBody AddTaskBody addTaskBody){
@@ -31,7 +32,7 @@ public class ListController {
 	
 	@RequestMapping(value = "/get_task_by_title", method = RequestMethod.GET)
 	public TaskRepresentation getTaskByTitle(@RequestParam String title) {
-		Task task = todoList.getTaskByTitle(title);
+		ITask task = todoList.getTaskByTitle(title);
 		return new TaskRepresentation(task.getId(), task.getTitle(), task.getDescription(), task.getCompletion());
 	}
 	
@@ -39,7 +40,7 @@ public class ListController {
 	@RequestMapping(value = "/get_task_by_id", method = RequestMethod.GET)
 	public TaskRepresentation getTaskById(@RequestParam int id) throws TaskNotFoundException{
 		String errorMsg = "The task with ID " + id + " was not found in tasks list.";
-		Task task = todoList.getTaskById(id);
+		ITask task = todoList.getTaskById(id);
 		if (task == null || task.isDeleted()) {
 			throw new TaskNotFoundException(errorMsg);
 		}
@@ -47,8 +48,9 @@ public class ListController {
 	}
 	
 	@RequestMapping(value = "/delete_task_by_id", method = RequestMethod.GET)
-	public ListRepresentation deleteTaskById(@RequestParam int id) {
-		todoList.deleteTask(id);
+	public ListRepresentation deleteTaskById(@RequestParam int id) throws TaskNotFoundException {
+		if(!todoList.deleteTask(id))
+			throw new TaskNotFoundException("Could not delete task with ID " + id +" (task not found)");
 		return new ListRepresentation(utils.TodoListConverter.todoListToTaskRepresentationArray(todoList));
 	}
 	
