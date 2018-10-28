@@ -17,7 +17,7 @@ import models.TaskRepresentation;
 @RestController
 public class ListController {
 	
-	private IToDoList todoList = DBFactory.getDaoInstance(DBType.SimulationByJavaObjects); //With JSystem or a similar test framework the type can come from the SUT 
+	private IToDoList todoList = DBFactory.getListInstance(DBType.SimulationByJavaObjects); //With JSystem or a similar test framework the type can come from the SUT 
 	
 	@RequestMapping(value = "/add_task", method = RequestMethod.POST)
 	public ListRepresentation addTask(@RequestBody AddTaskBody addTaskBody){

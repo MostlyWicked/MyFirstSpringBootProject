@@ -9,7 +9,7 @@ public final class DBFactory {
 	
 	private static ToDoList listDBSimulatorInstance = null;
 	
-	public static IToDoList getDaoInstance(DBType daoType) {
+	public static IToDoList getListInstance(DBType daoType) {
 		switch(daoType) {
 		case SimulationByJavaObjects:
 			if(listDBSimulatorInstance == null) {
